@@ -773,11 +773,11 @@ const PHASES = [
   {
     id:"p3", tab:"p3", short:"여름방학", cls:"p3", when:"STEP 3 · 여름방학 (3주)", title:"2-1 교과 심화 + 사이트워드 시작",
     tagline:"3주 남짓 짧은 방학이라 많이 하기보다 <b>수학과 영어를 한 단계씩 확장</b>하는 데 집중했어요.<br>루틴은 그대로 유지하면서 딱 한 칸씩만!",
+    dayTitle:"🕐 방학 중 하루 공부량 (시간대 구분 없이)",
     day:[
-      {ic:"🌅", when:"아침", what:"수학(문장제 · 개념서 · 필즈 · <b>최상위 수학S</b>) + 한자"},
-      {ic:"🔤", when:"낮·오후", what:"사이트워드 집중듣기 3권 → <b>낭독 1권</b> → 알파벳 라이팅 2장"},
-      {ic:"📖", when:"저녁", what:"한글책 혼자 읽기 1권(50p 전후) — 읽기 독립 연습"},
-      {ic:"🌛", when:"밤", what:"다이노 AI + 영어 영상 (매일 60분 이상)"}
+      {ic:"📐", when:"수학 · 2시간 정도", what:"문장제 2장 · 개념서 4~5장 · 필즈 2장 · <b>최상위 수학S 2장</b>"},
+      {ic:"🔤", when:"영어 · 2시간 정도", what:"사이트워드 집중듣기 3권 → <b>낭독 1권</b> → 알파벳 라이팅 2장<br>+ 다이노 AI · 영어 영상(매일 60분 이상)"},
+      {ic:"📖", when:"독서 · 30분 전후", what:"한글책 혼자 읽기 1권(50p 전후) — 읽기 독립 연습"}
     ],
     routine:[
       ["📐 수학","문장제 2장 · 개념서 4~5장 · 필즈 2장 · 최상위S 2장","<b>2-1 교과 심화</b> 첫 진입"],
@@ -868,7 +868,7 @@ function renderPhases(){
             <p class="tagline">${p.tagline}</p>
           </div>
           <div class="phase-body">
-            <div class="block-label">🕐 이 시기 하루 흐름</div>
+            <div class="block-label">${p.dayTitle || "🕐 이 시기 하루 흐름"}</div>
             <div class="day">
               ${p.day.map(d => `
                 <div class="day-row">
