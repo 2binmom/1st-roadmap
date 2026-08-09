@@ -517,7 +517,7 @@
   <h1>투빈맘's 초1💖<br>엄마표 로드맵 한눈에</h1>
   <p class="hero-sub">한글보다 수학이 좋았던 성빈이,<br>3월부터 여름방학까지 실제로 했던 루틴 전부 기록했어요</p>
   <div class="hero-rail">
-    <b>3~5월 루틴 만들기</b><i>→</i><b>5월~ 영어 확장</b><i>→</i><b>여름방학 2-1 심화</b>
+    <b>3~5월 루틴 만들기</b><i>→</i><b>5월~7월 영어 확장</b><i>→</i><b>여름방학 2-1 심화</b>
   </div>
   <div class="hero-actions">
     <a class="insta" href="https://www.instagram.com/2bin_mom/?hl=ko" target="_blank" rel="noopener">📸 @2bin_mom 인스타 보러가기</a>
@@ -528,7 +528,7 @@
 <nav class="toc">
   <a href="#guide" onclick="showTab('guide', event)">📖 가이드</a>
   <a href="#p1" onclick="showTab('p1', event)">1️⃣ 3~5월</a>
-  <a href="#p2" onclick="showTab('p2', event)">2️⃣ 5월~</a>
+  <a href="#p2" onclick="showTab('p2', event)">2️⃣ 5월~7월</a>
   <a href="#p3" onclick="showTab('p3', event)">3️⃣ 여름방학</a>
   <a href="#growth" onclick="showTab('growth', event)">📊 변화</a>
   <a href="#books" onclick="showTab('books', event)">📚 교재</a>
@@ -653,100 +653,100 @@ if ("scrollRestoration" in history) history.scrollRestoration = "manual";
    linkType: coupang | insta | site | none
    ══════════════════════════════════════════════════════════ */
 const BOOKS = {
-  yeonsan21:{img:"0469692d.png", subject:"수학", name:"바빠 교과서 연산 2-1",
+  yeonsan21:{cat:"math", img:"0469692d.png", subject:"연산", name:"바빠 교과서 연산 2-1",
     role:"연산 속도 + 정확도 끌어올리는 기본 체력 훈련용", when:"하루 1바닥",
     pts:["매일 짧게 → 연산 루틴 만들기","부담 없이 꾸준히 → 수학 자신감 유지"],
     kw:"바빠 연산 이지스에듀 교과서연산", link:"https://link.coupang.com/a/f4vMnHhxIW", linkType:"coupang"},
-  munjangje:{img:"98c2f140.png", subject:"수학", name:"바빠 수학 문장제 1-2",
+  munjangje:{cat:"math", img:"98c2f140.png", subject:"문장제 · 서술형", name:"바빠 수학 문장제 1-2",
     role:"문제 이해력 + 서술형 대비하는 핵심 교재", when:"하루 1장",
     pts:["\"왜 틀렸는지\" 같이 읽어보기 → 독해력 연결","식 세우는 연습 → 사고 과정 훈련","빠르게 풀기보다 천천히 이해하며 풀기"],
     kw:"바빠 문장제 서술형", link:"https://link.coupang.com/a/euig2M", linkType:"coupang"},
-  sigye:{img:"d1608408.png", subject:"수학", name:"바쁜 초등학생을 위한 빠른 시계와 시간",
+  sigye:{cat:"math", img:"d1608408.png", subject:"시계 · 시간", name:"바쁜 초등학생을 위한 빠른 시계와 시간",
     role:"일상에서 바로 쓰는 시계·달력 읽기 훈련 교재", when:"하루 1장",
     pts:["몇 시 몇 분 → 생활 속에서 바로 연결해보기","오늘 날짜, 요일 → 달력 보며 직접 말해보기","문제집만 풀지 말고 → 실생활에서 반복 적용"],
     kw:"바빠 시계 시간 달력", link:"https://link.coupang.com/a/f4vNzHKREa", linkType:"coupang"},
-  fieldsKinder:{img:"bd243cc6.png", subject:"수학", name:"영재 사고력수학 필즈 (킨더 상)",
+  fieldsKinder:{cat:"math", img:"bd243cc6.png", subject:"사고력 수학", name:"영재 사고력수학 필즈 (킨더 상)",
     role:"단순 계산 넘어서 생각하는 힘 키우는 교재", when:"주 1회 정도",
     pts:["정답보다 과정 설명하게 하기","막히는 문제는 같이 고민 → 사고 확장","주 1회 정도로 → 과부하 없이 유지"],
     kw:"필즈 사고력 영재 킨더 매쓰러닝", link:"https://link.coupang.com/a/f4vOMqypxY", linkType:"coupang"},
-  phonics3:{img:"171f78fe.png", subject:"영어", name:"스마트 파닉스",
+  phonics3:{cat:"eng", img:"171f78fe.png", subject:"파닉스", name:"스마트 파닉스",
     role:"읽기 기초 다지는 소리 연결 훈련", when:"하루 1챕터 30분",
     pts:["소리 내서 읽기 → 입으로 익히기","틀려도 괜찮게 → 부담 없이 반복","하루 30분 정도 → 학원 대신, 꾸준함 유지"],
     kw:"스마트파닉스 파닉스 인강 이퓨쳐", link:"https://link.coupang.com/a/euitd9", linkType:"coupang"},
-  ort13:{img:"5012ad5b.jpg", subject:"영어", name:"ORT 1~3단계 (집중듣기)",
+  ort13:{cat:"eng", img:"5012ad5b.jpg", subject:"집중듣기", name:"ORT 1~3단계 (집중듣기)",
     role:"문장 감각 익히는 기초 리딩 + 듣기 교재", when:"하루 3권",
     pts:["집중듣기 처음 시작!","반복 듣기 → 익숙함 만들기","해석보다 흐름으로 이해하기"],
     kw:"ORT 옥스포드 리딩트리 집중듣기 집듣", link:"", linkType:"none"},
-  engvideo:{img:"1a2843db.jpg", subject:"영어", name:"영어 영상 노출",
+  engvideo:{cat:"eng", img:"1a2843db.jpg", subject:"영어 노출", name:"영어 영상 노출",
     role:"영어를 '공부'가 아니라 환경으로 만드는 핵심 요소", when:"하루 30~60분",
     pts:["재미있는 영상 위주 → 거부감 없이 노출","완벽 이해보다 익숙함이 목표","꾸준히 → 자연스러운 언어 감각 형성"],
     kw:"영어영상 흘려듣기 노출 유튜브", link:"https://www.instagram.com/reel/DbXI6fzJNiH/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", linkType:"insta"},
-  hanja1:{img:"7e8cabba.png", subject:"한자", name:"기탄 한자",
+  hanja1:{cat:"hanja", img:"7e8cabba.png", subject:"한자", name:"기탄 한자",
     phaseLabel:"3월부터 쭈욱~",
     role:"어휘력 + 문해력 연결되는 기초 한자 학습", when:"하루 1~2장",
     pts:["하루 1~2장 → 부담 없이 반복","뜻 중심으로 이해 → 암기 부담 줄이기","스티커 있는 쉬운 교재로 → 부담없이 시작하기"],
     kw:"기탄 한자 어휘 문해력", link:"https://link.coupang.com/a/euint8", linkType:"coupang"},
 
-  yeonsan22:{img:"ecc4533d.png", subject:"수학", name:"바빠 교과서 연산 2-2",
+  yeonsan22:{cat:"math", img:"ecc4533d.png", subject:"연산", name:"바빠 교과서 연산 2-2",
     role:"연산 속도 + 정확도 끌어올리는 기본 체력 훈련용", when:"하루 1바닥",
     pts:["매일 짧게 → 연산 루틴 만들기","부담 없이 꾸준히 → 수학 자신감 유지"],
     kw:"바빠 연산 이지스에듀 교과서연산", link:"https://link.coupang.com/a/ehzRLzkEN2", linkType:"coupang"},
-  munjangje21:{img:"7f1c9684.png", subject:"수학", name:"바빠 수학 문장제 2-1",
+  munjangje21:{cat:"math", img:"7f1c9684.png", subject:"문장제 · 서술형", name:"바빠 수학 문장제 2-1",
     role:"문제 이해력 + 서술형 대비하는 핵심 교재", when:"하루 1~2장",
     pts:["\"왜 틀렸는지\" 같이 읽어보기 → 독해력 연결","식 세우는 연습 → 사고 과정 훈련","빠르게 풀기보다 천천히 이해하며 풀기"],
     kw:"바빠 문장제 서술형 나혼자푼다", link:"https://link.coupang.com/a/ehzX86rIrc", linkType:"coupang"},
-  kkokgong:{img:"2cb985fc.png", subject:"수학", name:"꼭공 1-2 (국어+수학)",
+  kkokgong:{cat:"math", img:"2cb985fc.png", subject:"국어 + 수학", name:"꼭공 1-2 (국어+수학)",
     role:"국어·수학을 함께 익히며 기초 학습 습관을 만드는 교재", when:"하루 1장",
     pts:["하루 분량씩 꾸준히 → 공부 루틴 만들기","국어·수학을 번갈아 학습 → 지루함 줄이기","틀린 문제는 정답보다 → 생각 과정 함께 확인하기"],
     kw:"꼭공 국어 수학 꼭필요한공부", link:"https://link.coupang.com/a/ehz65VZPHM", linkType:"coupang"},
-  fieldsSang:{img:"758c47fa.png", subject:"수학", name:"영재 사고력수학 필즈 (베이직 상)",
+  fieldsSang:{cat:"math", img:"758c47fa.png", subject:"사고력 수학", name:"영재 사고력수학 필즈 (베이직 상)",
     role:"단순 계산 넘어서 생각하는 힘 키우는 교재", when:"하루 1장",
     pts:["정답보다 과정 설명하게 하기","막히는 문제는 같이 고민 → 사고 확장","여유 있을 때 2~3장 추가로 더 풀기"],
     kw:"필즈 사고력 영재 베이직 매쓰러닝", link:"https://link.coupang.com/a/f4iDu22yvB", linkType:"coupang"},
-  gaenyeom21:{img:"93239c30.png", subject:"수학", name:"그림으로 개념 잡는 초등수학 2-1",
+  gaenyeom21:{cat:"math", img:"93239c30.png", subject:"개념 수학", name:"그림으로 개념 잡는 초등수학 2-1",
     role:"그림과 무료 인강으로 개념을 익히는 초등 수학 개념 학습 교재", when:"하루 1~3장",
     pts:["먼저 무료 인강 시청 → 개념 이해하기","그림과 예시로 개념 확인 → 쉽게 익히기","문제 풀이보다 → 개념 설명할 수 있는지 확인하기"],
     kw:"그림으로개념잡는 개념 인강 기적학습연구소", link:"https://link.coupang.com/a/ehBXZPdXMW", linkType:"coupang"},
-  phonics4:{img:"b715950e.png", subject:"영어", name:"스마트 파닉스 (인강 활용)",
+  phonics4:{cat:"eng", img:"b715950e.png", subject:"파닉스 · 인강", name:"스마트 파닉스 (인강 활용)",
     role:"파닉스 규칙을 익히며 영어 읽기 기초를 다지는 교재", when:"주 3회 1챕터 30분",
     pts:["음가를 정확히 듣고 따라 읽기 → 소리와 글자 연결하기","단어를 외우기보다 → 읽는 규칙 이해하기","QR·음원과 함께 반복 → 읽기 자신감 키우기"],
     kw:"스마트파닉스 파닉스 인강 이퓨쳐", link:"https://link.coupang.com/a/ehB348jnzg", linkType:"coupang"},
-  dinoai:{img:"9f019992.jpg", subject:"영어", name:"다이노 AI (화상영어 대체)",
+  dinoai:{cat:"eng", img:"9f019992.jpg", subject:"화상영어 · AI 복습", name:"다이노 AI (화상영어 대체)",
     role:"AI와 함께 듣고 말하며 영어 학습 습관을 만드는 영어 학습 앱", when:"주 2회 1강 30분",
     pts:["원어민 수업 시청 후 → AI와 바로 복습하기","발음 연습과 질문하기 → 말하기 자신감 키우기","라디오·단어 학습 활용 → 일상 속 영어 노출 늘리기"],
     kw:"다이노AI 화상영어 원어민 말하기 스피킹 AI",
     link:"https://kr.dinoai.ai/website/payment/sku/?id=26&channel=K2000GH&tracecode=IH2606009", linkType:"site"},
-  ort34:{img:"5012ad5b.jpg", subject:"영어", name:"ORT 3~4단계 (집중듣기)",
+  ort34:{cat:"eng", img:"5012ad5b.jpg", subject:"집중듣기", name:"ORT 3~4단계 (집중듣기)",
     role:"문장 감각 익히는 기초 리딩 + 듣기 교재", when:"하루 3권",
     pts:["1~3단계에서 한 단계 올라온 시기","반복 듣기 → 익숙함 만들기","해석보다 흐름으로 이해하기"],
     kw:"ORT 옥스포드 리딩트리 집중듣기 집듣", link:"", linkType:"none"},
 
-  fieldsJung:{img:"93432d41.png", subject:"수학", name:"영재 사고력수학 필즈 (베이직 중)",
+  fieldsJung:{cat:"math", img:"93432d41.png", subject:"사고력 수학", name:"영재 사고력수학 필즈 (베이직 중)",
     role:"단순 계산 넘어서 생각하는 힘 키우는 사고력 교재", when:"하루 2장",
     pts:["정답보다 과정 설명하게 하기","막히는 문제는 같이 고민 → 사고 확장","주 1회 정도로 → 과부하 없이 유지"],
     kw:"필즈 사고력 영재 베이직 매쓰러닝", link:"https://link.coupang.com/a/f4iDu22yvB", linkType:"coupang"},
-  choesangwi:{img:"64463ad7.png", subject:"수학", name:"디딤돌 최상위 수학S 2-1",
+  choesangwi:{cat:"math", img:"64463ad7.png", subject:"교과수학 · 심화", name:"디딤돌 최상위 수학S 2-1",
     role:"기본 개념에서 한 단계 더 나아가 심화 문제 해결력을 키우는 교재", when:"하루 2장",
     pts:["개념을 이해한 뒤 풀기 → 배운 개념을 다양한 문제에 적용","어려운 문제는 정답보다 → 어떻게 풀지 생각하는 과정에 집중","하루 1~2장씩 천천히 → 부담 없이 심화에 익숙해지기"],
     kw:"디딤돌 최상위 심화 최상위수학S", link:"https://link.coupang.com/a/f4i815KvGC", linkType:"coupang"},
-  sightword:{img:"153b185a.jpg", subject:"영어", name:"Scholastic 사이트워드 리더스 (A~D)",
+  sightword:{cat:"eng", img:"153b185a.jpg", subject:"사이트워드", name:"Scholastic 사이트워드 리더스 (A~D)",
     role:"자주 나오는 영어 단어를 익혀 영어 읽기의 기초를 만드는 학습", when:"하루 3권",
     pts:["자주 등장하는 단어부터 반복 → 보자마자 읽기","외우기보다 → 보고 듣고 읽으며 자연스럽게 익히기","파닉스와 함께 꾸준히 노출 → 문장 읽는 힘 키우기"],
     kw:"사이트워드 스콜라스틱 리더스 논픽션", link:"https://link.coupang.com/a/f4kPWwjpwy", linkType:"coupang"},
-  nangdok:{img:"153b185a.jpg", subject:"영어", name:"낭독 루틴 (사이트워드 활용)",
+  nangdok:{cat:"eng", img:"153b185a.jpg", subject:"낭독", name:"낭독 루틴 (사이트워드 활용)",
     role:"영어책을 직접 소리 내어 읽으며 읽기 유창성과 자신감을 키우는 루틴", when:"하루 1권",
     pts:["짧고 쉬운 문장부터 소리 내어 읽기","틀릴 때마다 고치기보다 → 끝까지 읽는 흐름 유지","반복해서 읽으며 → 표현·문장 구조 익히기"],
     kw:"낭독 소리내어읽기 리딩 유창성", link:"https://link.coupang.com/a/f4kPWwjpwy", linkType:"coupang"},
-  alphabet:{img:"7e0173a1.jpg", subject:"영어", name:"알파벳 라이팅 연습",
+  alphabet:{cat:"eng", img:"7e0173a1.jpg", subject:"라이팅", name:"알파벳 라이팅 연습",
     role:"알파벳을 줄에 맞춰 쓰며 영어 쓰기의 기초를 다지는 연습", when:"하루 2장",
     pts:["대문자·소문자를 줄에 맞춰 쓰기","글자 모양과 간격을 천천히 확인","많은 양보다 짧게 반복 → 부담 없이"],
     kw:"알파벳 라이팅 쓰기 writing 연습지", link:"", linkType:"none"},
-  video20:{img:"8392c25a.jpg", subject:"영어", name:"영어 노출 영상 20선",
+  video20:{cat:"eng", img:"8392c25a.jpg", subject:"영어 노출", name:"영어 노출 영상 20선",
     role:"영어를 공부가 아닌 일상 속에서 자연스럽게 익숙해지게 하는 영어 노출", when:"매일 60분 이상~",
     pts:["아이가 좋아하는 영상 위주로 → 흥미 유지","모든 내용 이해보다 → 소리와 표현에 익숙해지기","식사 시간 활용해 꾸준히 → 부담 없이 노출량 늘리기"],
     kw:"영상 20선 흘려듣기 노출 유튜브 자료나눔",
     link:"https://www.instagram.com/reel/DbXI6fzJNiH/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", linkType:"insta"},
-  reading:{img:"961b7144.jpg", subject:"독서", name:"한글책 독서 루틴",
+  reading:{cat:"read", img:"961b7144.jpg", subject:"독서", name:"한글책 독서 루틴",
     role:"혼자 책을 읽는 경험을 쌓으며 스스로 읽는 힘과 독서 습관을 기르는 과정", when:"하루 1권 (50p 전후)",
     pts:["혼자 읽을 수 있는 쉬운 책부터 → 자신감 키우기","모르는 단어마다 멈추기보다 → 문맥으로 이해하며 읽기","매일 조금씩 → 자연스럽게 읽기 독립으로"],
     kw:"독서 책 읽기독립 한글책 저학년",
@@ -776,7 +776,7 @@ const PHASES = [
     delta:null
   },
   {
-    id:"p2", tab:"p2", short:"5월~", cls:"p2", when:"STEP 2 · 5월~", title:"수학은 넓히고, 영어는 말하기까지",
+    id:"p2", tab:"p2", short:"5월~7월", cls:"p2", when:"STEP 2 · 5월~7월", title:"수학은 넓히고, 영어는 말하기까지",
     tagline:"수학 중심 루틴에서 <b>영어 파닉스 등 기초를 함께 쌓는 시기</b>.<br>한글 책 읽기도 집중! 형아 1학년 때보다는 쉬운 난이도로 하고 있어요.",
     day:[
       {ic:"🌅", when:"아침 40~60분", what:"수학(연산 · 문장제 · 꼭공) + 한자 1장<br>마무리로 <b>ORT 3~4단계 집중듣기 3권</b>"},
@@ -823,21 +823,21 @@ const GROWTH = [
   { title:"📐 수학 — 연산에서 심화까지", sum:"좋아하는 과목이라 가장 빠르게 확장된 영역이에요",
     steps:[
       {when:"3~5월", items:["바빠 교과서 연산 2-1 (하루 1바닥)","바빠 수학 문장제 (하루 1장)","바쁜 초등학생 시계와 시간 (하루 1장)","필즈 킨더 상 — 주 1회"]},
-      {when:"5월~", items:["연산 <b class='new'>2-1 → 2-2</b>","<b class='new'>꼭공 1-2 추가</b> — 국어까지 함께","<b class='new'>그림으로 개념 잡는 초등수학 2-1 추가</b> — 인강 개념","필즈 <b class='new'>킨더 상 → 베이직 상</b>, 주1회 → 하루 1장"]},
+      {when:"5월~7월", items:["연산 <b class='new'>2-1 → 2-2</b>","<b class='new'>꼭공 1-2 추가</b> — 국어까지 함께","<b class='new'>그림으로 개념 잡는 초등수학 2-1 추가</b> — 인강 개념","필즈 <b class='new'>킨더 상 → 베이직 상</b>, 주1회 → 하루 1장"]},
       {when:"여름방학", items:["<b class='new'>디딤돌 최상위 수학S 2-1 추가</b> — 교과 심화 진입!","필즈 <b class='new'>베이직 상 → 베이직 중</b>","개념서 하루 <b class='new'>4~5장</b>으로 확대"]}
     ],
     punch:"3월엔 <b>연산·문장제만</b> 했는데, 여름방학엔 <b>교과 심화(최상위S)</b>까지 왔어요. 그래도 하루 분량은 여전히 '몇 장' 수준이에요 😊"},
   { title:"🔤 영어 — 듣기에서 읽기·말하기·쓰기로", sum:"가장 극적으로 넓어진 영역이에요",
     steps:[
       {when:"3~5월", items:["ORT <b>1~3단계</b> 집중듣기 (하루 3권) — 집듣 첫 시작","스마트 파닉스 인강 (하루 1챕터 30분)","영어 영상 30~60분 — 식사 시간 활용","<i>화상영어는 몇 번 하다 멈춤 (완벽주의 성향)</i>"]},
-      {when:"5월~", items:["ORT <b class='new'>3~4단계</b>로 상승","파닉스 매일 → <b class='new'>주 3회</b>로 조정","<b class='new'>다이노 AI 추가 (주 2회)</b> — 화상영어 대체로 딱!"]},
+      {when:"5월~7월", items:["ORT <b class='new'>3~4단계</b>로 상승","파닉스 매일 → <b class='new'>주 3회</b>로 조정","<b class='new'>다이노 AI 추가 (주 2회)</b> — 화상영어 대체로 딱!"]},
       {when:"여름방학", items:["파닉스 마무리 → <b class='new'>사이트워드 시작</b> (하루 3권)","<b class='new'>낭독 루틴 시작</b> — 듣고 직접 소리 내어 읽기","<b class='new'>알파벳 라이팅 시작</b> — 쓰기 첫 발","영어 영상 <b class='new'>매일 60분 이상</b>으로"]}
     ],
     punch:"<b>듣기(집듣) → 읽기(파닉스·사이트워드) → 말하기(AI·낭독) → 쓰기(라이팅)</b> 순서로 하나씩 붙여나갔어요. 한 번에 다 하지 않았다는 게 포인트예요!"},
   { title:"🈷️ 한자 · 📖 독서 — 조용히 계속 이어진 루틴", sum:"바뀐 건 없지만, 끊긴 적도 없어요",
     steps:[
       {when:"3~5월", items:["기탄 한자 하루 1장 — 첫 한자 시작","스티커 붙이는 쉬운 형식이라 부담 없이"]},
-      {when:"5월~", items:["기탄 한자 하루 1장 그대로 유지","<b class='new'>한글 책 읽기에 집중</b> 시작"]},
+      {when:"5월~7월", items:["기탄 한자 하루 1장 그대로 유지","<b class='new'>한글 책 읽기에 집중</b> 시작"]},
       {when:"여름방학", items:["기탄 한자 하루 <b class='new'>1~2장</b>","<b class='new'>혼자 읽기 하루 1권</b> (50p 전후) — 읽기 독립 연습"]}
     ],
     punch:"6세에 한자를 시작한 형아보다 <b>늦게 시작</b>했어요. 한자에 관심이 없었거든요. 대신 <b>양을 늘리지 않고 계속 이어가는 것</b>만 지켰어요."}
@@ -959,7 +959,7 @@ function renderGrowth(){
 }
 
 /* 교재 전체 — 시기 뱃지 계산 */
-const PHASE_SHORT = ["3~5월", "5월~", "여름"];
+const PHASE_SHORT = ["3~5월", "5월~7월", "여름방학"];
 const BOOK_PHASES = {};
 PHASES.forEach((p, i) => p.books.forEach(sl => {
   const arr = (BOOK_PHASES[sl] = BOOK_PHASES[sl] || []);
@@ -968,15 +968,15 @@ PHASES.forEach((p, i) => p.books.forEach(sl => {
 
 /* 과목별로 한 블록씩 · 옆으로 넘겨서 보기 */
 const BOOK_GROUPS = [
-  {key:"수학", label:"📐 수학"},
-  {key:"영어", label:"🔤 영어"},
-  {key:"한자", label:"🈷️ 한자"},
-  {key:"독서", label:"📖 독서"}
+  {key:"math",  label:"📐 수학"},
+  {key:"eng",   label:"🔤 영어"},
+  {key:"hanja", label:"🈷️ 한자"},
+  {key:"read",  label:"📖 독서"}
 ];
 
 function renderBooks(){
   const html = BOOK_GROUPS.map((g, gi) => {
-    const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].subject === g.key);
+    const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].cat === g.key);
     if (!slugs.length) return "";
     const id = "brail-" + gi;
     return `
@@ -1027,7 +1027,7 @@ function applyDoneState(){
     if (b){ b.classList.toggle("on", on); b.textContent = on ? "✅ 확인 완료!" : "✅ 확인했어요!"; }
   });
   BOOK_GROUPS.forEach((g, gi) => {
-    const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].subject === g.key);
+    const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].cat === g.key);
     const el = document.getElementById("prog-" + gi);
     if (el) el.textContent = slugs.filter(sl => d[sl]).length + "/" + slugs.length;
   });
