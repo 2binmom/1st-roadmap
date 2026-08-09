@@ -279,9 +279,19 @@
   .bk-name{font-size:12.5px; font-weight:700; line-height:1.45;}
   .bk-name a{text-decoration:none;}
   .bk-name a:hover{color:var(--pink-deep);}
-  .bk-role{font-size:11px; color:var(--sub); line-height:1.6;}
-  .bk-pts{margin:2px 0 0; padding-left:14px;}
-  .bk-pts li{font-size:10.5px; line-height:1.6; color:#7A6870; margin-bottom:2px;}
+  .bk-role{
+    font-size:11.5px; color:#5A4650; margin:0; line-height:1.65;
+    background:#FAFAFA; border-left:3px solid var(--line);
+    border-radius:8px; padding:8px 10px;
+  }
+  .bk-pts{
+    background:#FFF9E6; border:1px solid #FFE9A8; border-radius:10px;
+    padding:10px 12px; margin:0;
+  }
+  .bk-pts strong{display:block; font-size:11px; font-weight:800; color:#B8860B; margin-bottom:5px;}
+  .bk-pts ul{margin:0; padding-left:15px;}
+  .bk-pts li{font-size:11px; line-height:1.65; color:#6B5A20; margin-bottom:3px;}
+  .bk-pts li:last-child{margin-bottom:0;}
   .bk-when{
     margin-top:auto; padding-top:6px; font-size:10.5px; font-weight:800;
     color:#B8860B; background:#FFF9E6; border-radius:8px; padding:5px 8px; text-align:center;
@@ -844,7 +854,7 @@ function bookHTML(slug, phaseTag, withCheck){
         <div class="bk-sub">${esc(b.subject)}</div>
         <div class="bk-name">${nm}</div>
         <div class="bk-role">${esc(b.role)}</div>
-        <ul class="bk-pts">${b.pts.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+        <div class="bk-pts"><strong>💡 활용 포인트</strong><ul>${b.pts.map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>
         <div class="bk-when">${esc(b.when)}</div>
         ${withCheck ? `<button type="button" class="check-btn" onclick="toggleDone('${slug}')">✅ 확인했어요!</button>` : ""}
       </div>
@@ -894,7 +904,7 @@ function renderPhases(){
             <div class="block-label">📚 이 시기 교재 · 옆으로 넘겨보세요</div>
             <div class="carousel-wrap">
               <button type="button" class="cbtn prev" onclick="scrollRail('${railId}',-1)" aria-label="이전">‹</button>
-              <div class="rail" id="${railId}">${p.books.map(b => bookHTML(b)).join("")}</div>
+              <div class="rail" id="${railId}">${p.books.map(b => bookHTML(b, null, true)).join("")}</div>
               <button type="button" class="cbtn next" onclick="scrollRail('${railId}',1)" aria-label="다음">›</button>
             </div>
           </div>
@@ -1037,6 +1047,7 @@ function showTab(id, evt, opts){
   /* 첫 진입에 해시를 남기면 새로고침 때 헤더가 가려지도록 자동 스크롤돼서 막는다 */
   if (!opts.skipHash) history.replaceState(null, "", "#" + id);
   updateArrows();
+  applyDoneState();
 }
 
 function initTab(){
