@@ -273,6 +273,35 @@
     color:#B8860B; background:#FFF9E6; border-radius:8px; padding:5px 8px; text-align:center;
   }
 
+  /* 교재 확인 체크 */
+  .bk.done .bk-cover img{opacity:.5; filter:grayscale(15%);}
+  .bk-stamp{
+    position:absolute; top:50%; left:50%; z-index:3; pointer-events:none;
+    transform:translate(-50%,-50%) rotate(-14deg) scale(.5);
+    border:3.5px solid #E0567A; color:#E0567A; background:rgba(255,255,255,.9);
+    font-size:16px; font-weight:900; letter-spacing:2px; border-radius:9px;
+    padding:4px 12px; opacity:0; transition:opacity .2s, transform .25s cubic-bezier(.34,1.56,.64,1);
+  }
+  .bk.done .bk-stamp{opacity:1; transform:translate(-50%,-50%) rotate(-14deg) scale(1);}
+  .check-btn{
+    width:100%; margin-top:7px; height:34px; border-radius:999px;
+    border:1.5px solid var(--line); background:#fff; color:var(--sub);
+    font-size:11.5px; font-weight:800; cursor:pointer; font-family:inherit; transition:all .15s;
+  }
+  .check-btn:hover{border-color:var(--pink-light); color:var(--pink-deep);}
+  .check-btn.on{background:var(--pink); border-color:var(--pink); color:#fff;}
+  .rail-label .prog{
+    font-size:11.5px; font-weight:800; color:var(--pink-deep);
+    background:var(--pink-bg); border-radius:999px; padding:3px 10px;
+  }
+  .book-tools{display:flex; justify-content:flex-end; margin-bottom:6px;}
+  .book-tools button{
+    background:none; border:1px solid var(--pink-deep); color:var(--pink-deep);
+    font-weight:700; font-size:12px; border-radius:999px; padding:5px 13px;
+    cursor:pointer; font-family:inherit;
+  }
+  .book-tools button:hover{background:var(--pink-deep); color:#fff;}
+
   /* 단계 표시 · 시기 이동 */
   .dots{display:flex; gap:6px; justify-content:center; align-items:center; margin-bottom:14px;}
   .dots i{width:28px; height:5px; border-radius:99px; background:var(--line);}
@@ -576,7 +605,7 @@ const BOOKS = {
     role:"연산 속도 + 정확도 끌어올리는 기본 체력 훈련용", when:"하루 1바닥",
     pts:["매일 짧게 → 연산 루틴 만들기","부담 없이 꾸준히 → 수학 자신감 유지"],
     kw:"바빠 연산 이지스에듀 교과서연산", link:"", linkType:"none"},
-  munjangje:{img:"98c2f140.png", subject:"수학", name:"바빠 수학 문장제",
+  munjangje:{img:"98c2f140.png", subject:"수학", name:"바빠 수학 문장제 1-2",
     role:"문제 이해력 + 서술형 대비하는 핵심 교재", when:"하루 1장",
     pts:["\"왜 틀렸는지\" 같이 읽어보기 → 독해력 연결","식 세우는 연습 → 사고 과정 훈련","빠르게 풀기보다 천천히 이해하며 풀기"],
     kw:"바빠 문장제 서술형", link:"https://link.coupang.com/a/euig2M", linkType:"coupang"},
@@ -620,7 +649,7 @@ const BOOKS = {
   fieldsSang:{img:"758c47fa.png", subject:"수학", name:"영재 사고력수학 필즈 (베이직 상)",
     role:"단순 계산 넘어서 생각하는 힘 키우는 교재", when:"하루 1장",
     pts:["정답보다 과정 설명하게 하기","막히는 문제는 같이 고민 → 사고 확장","여유 있을 때 2~3장 추가로 더 풀기"],
-    kw:"필즈 사고력 영재 베이직 매쓰러닝", link:"https://link.coupang.com/a/ehBkcxMhdQ", linkType:"coupang"},
+    kw:"필즈 사고력 영재 베이직 매쓰러닝", link:"https://link.coupang.com/a/f4iDu22yvB", linkType:"coupang"},
   gaenyeom21:{img:"93239c30.png", subject:"수학", name:"그림으로 개념 잡는 초등수학 2-1",
     role:"그림과 무료 인강으로 개념을 익히는 초등 수학 개념 학습 교재", when:"하루 1~3장",
     pts:["먼저 무료 인강 시청 → 개념 이해하기","그림과 예시로 개념 확인 → 쉽게 익히기","문제 풀이보다 → 개념 설명할 수 있는지 확인하기"],
@@ -768,7 +797,7 @@ const GROWTH = [
 /* ══════ 렌더링 ══════ */
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-function bookHTML(slug, phaseTag){
+function bookHTML(slug, phaseTag, withCheck){
   const b = BOOKS[slug];
   if (!b) return "";
   const has = b.linkType !== "none" && b.link;
@@ -776,7 +805,8 @@ function bookHTML(slug, phaseTag){
   const inner = `
       ${phaseTag ? `<span class="bk-tag">${phaseTag}</span>` : ""}
       <img src="images/${b.img}" alt="${esc(b.name)} 표지" loading="lazy"
-           onerror="this.style.display='none'; this.parentElement.insertAdjacentText('beforeend','📘');">`;
+           onerror="this.style.display='none'; this.parentElement.insertAdjacentText('beforeend','📘');">
+      ${withCheck ? `<span class="bk-stamp">확인!</span>` : ""}`;
   const cover = has
     ? `<a class="bk-cover lk-${b.linkType}" href="${esc(b.link)}" target="_blank" rel="${rel}" aria-label="${esc(b.name)} 페이지로 이동">${inner}</a>`
     : `<div class="bk-cover lk-none">${inner}</div>`;
@@ -784,7 +814,7 @@ function bookHTML(slug, phaseTag){
     ? `<a href="${esc(b.link)}" target="_blank" rel="${rel}">${esc(b.name)}</a>`
     : esc(b.name);
   return `
-    <div class="bk">
+    <div class="bk" data-slug="${slug}">
       ${cover}
       <div class="bk-body">
         <div class="bk-sub">${esc(b.subject)}</div>
@@ -792,6 +822,7 @@ function bookHTML(slug, phaseTag){
         <div class="bk-role">${esc(b.role)}</div>
         <ul class="bk-pts">${b.pts.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
         <div class="bk-when">${esc(b.when)}</div>
+        ${withCheck ? `<button type="button" class="check-btn" onclick="toggleDone('${slug}')">✅ 확인했어요!</button>` : ""}
       </div>
     </div>`;
 }
@@ -889,18 +920,57 @@ const BOOK_GROUPS = [
 ];
 
 function renderBooks(){
-  document.getElementById("books-body").innerHTML = BOOK_GROUPS.map((g, gi) => {
+  const html = BOOK_GROUPS.map((g, gi) => {
     const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].subject === g.key);
     if (!slugs.length) return "";
     const id = "brail-" + gi;
     return `
-      <div class="rail-label">${g.label} <span class="cnt">${slugs.length}종</span><span class="swipe">옆으로 넘겨보세요 →</span></div>
+      <div class="rail-label">
+        ${g.label} <span class="cnt">${slugs.length}종</span>
+        <span class="prog" id="prog-${gi}">0/${slugs.length}</span>
+        <span class="swipe">옆으로 넘겨보세요 →</span>
+      </div>
       <div class="carousel-wrap">
         <button type="button" class="cbtn prev" onclick="scrollRail('${id}',-1)" aria-label="이전">‹</button>
-        <div class="rail" id="${id}">${slugs.map(sl => bookHTML(sl, (BOOK_PHASES[sl] || []).join("·"))).join("")}</div>
+        <div class="rail" id="${id}">${slugs.map(sl => bookHTML(sl, (BOOK_PHASES[sl] || []).join("·"), true)).join("")}</div>
         <button type="button" class="cbtn next" onclick="scrollRail('${id}',1)" aria-label="다음">›</button>
       </div>`;
   }).join("");
+  document.getElementById("books-body").innerHTML =
+    `<div class="book-tools"><button type="button" onclick="resetDone(this)">🔄 체크 초기화</button></div>` + html;
+  applyDoneState();
+}
+
+/* ── 확인 체크 (브라우저에 저장) ── */
+const DONE_KEY = "2bin_1st_roadmap_done";
+function getDone(){ try { return JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); } catch(e){ return {}; } }
+function toggleDone(slug){
+  const d = getDone();
+  d[slug] = !d[slug];
+  try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch(e){}
+  applyDoneState();
+}
+function resetDone(btn){
+  if (btn._t) clearTimeout(btn._t);
+  try { localStorage.removeItem(DONE_KEY); } catch(e){}
+  applyDoneState();
+  btn.textContent = "✅ 초기화 완료!";
+  btn._t = setTimeout(() => { btn.textContent = "🔄 체크 초기화"; }, 1500);
+}
+function applyDoneState(){
+  const d = getDone();
+  /* 같은 교재가 교재탭·검색결과에 동시에 있을 수 있어 전부 순회 */
+  document.querySelectorAll(".bk[data-slug]").forEach(card => {
+    const on = !!d[card.dataset.slug];
+    card.classList.toggle("done", on);
+    const b = card.querySelector(".check-btn");
+    if (b){ b.classList.toggle("on", on); b.textContent = on ? "✅ 확인 완료!" : "✅ 확인했어요!"; }
+  });
+  BOOK_GROUPS.forEach((g, gi) => {
+    const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].subject === g.key);
+    const el = document.getElementById("prog-" + gi);
+    if (el) el.textContent = slugs.filter(sl => d[sl]).length + "/" + slugs.length;
+  });
 }
 
 function toggleMore(){
@@ -975,8 +1045,9 @@ function applySearch(){
   }
   const m = INDEX.filter(e => e.hay.includes(q));
   box.innerHTML = m.length
-    ? `<div class="search-grid">${m.map(e => bookHTML(e.slug, (BOOK_PHASES[e.slug] || []).join("·"))).join("")}</div>`
+    ? `<div class="search-grid">${m.map(e => bookHTML(e.slug, (BOOK_PHASES[e.slug] || []).join("·"), true)).join("")}</div>`
     : `<p class="ss-hint">검색 결과가 없어요 🥲<br>다른 이름으로 찾아보세요</p>`;
+  applyDoneState();
 }
 function clearSearch(){
   const i = document.getElementById("q");
