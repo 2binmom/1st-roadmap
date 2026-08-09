@@ -318,6 +318,21 @@
     font-size:11.5px; font-weight:800; color:var(--pink-deep);
     background:var(--pink-bg); border-radius:999px; padding:3px 10px;
   }
+  /* ── 진행률 ── */
+  .progress-wrap{
+    display:flex; align-items:center; gap:10px; font-size:15px; font-weight:700;
+    color:var(--ink); margin-bottom:18px;
+  }
+  .progress-bar{flex:1; height:8px; background:var(--pink-bg); border-radius:999px; overflow:hidden;}
+  .progress-bar > i{display:block; height:100%; width:0%; border-radius:999px; transition:width .3s; background:var(--pink);}
+  .reset-btn{
+    background:none; border:1px solid var(--pink-deep); color:var(--pink-deep);
+    font-weight:700; font-size:12px; border-radius:999px; padding:4px 12px;
+    cursor:pointer; white-space:nowrap; font-family:inherit;
+  }
+  .reset-btn:hover{background:var(--pink-deep); color:#fff;}
+  @media (max-width:600px){ .progress-wrap{font-size:13.5px; gap:8px;} }
+
   .book-tools{display:flex; justify-content:flex-end; margin-bottom:6px;}
   .book-tools button{
     background:none; border:1px solid var(--pink-deep); color:var(--pink-deep);
@@ -901,6 +916,12 @@ function renderPhases(){
             ${p.delta ? `<div class="delta"><b>🔺 지난 시기에서 이렇게 바뀌었어요</b><ul>${p.delta.map(d => `<li>${d}</li>`).join("")}</ul></div>` : ""}
             ${p.note ? `<details class="acc note-acc"><summary>💬 이 시기 투빈맘 이야기</summary><div class="acc-body">${p.note}</div></details>` : ""}
 
+            <div class="progress-wrap">
+              <span>확인한 교재</span>
+              <div class="progress-bar"><i id="bar-${p.tab}"></i></div>
+              <span id="cnt-${p.tab}">0/${p.books.length}</span>
+              <button type="button" class="reset-btn" onclick="resetDone(this)">🔄 초기화</button>
+            </div>
             <div class="block-label">📚 이 시기 교재 · 옆으로 넘겨보세요</div>
             <div class="carousel-wrap">
               <button type="button" class="cbtn prev" onclick="scrollRail('${railId}',-1)" aria-label="이전">‹</button>
@@ -971,7 +992,12 @@ function renderBooks(){
       </div>`;
   }).join("");
   document.getElementById("books-body").innerHTML =
-    `<div class="book-tools"><button type="button" onclick="resetDone(this)">🔄 체크 초기화</button></div>` + html;
+    `<div class="progress-wrap">
+       <span>확인한 교재</span>
+       <div class="progress-bar"><i id="bar-all"></i></div>
+       <span id="cnt-all">0/${Object.keys(BOOKS).length}</span>
+       <button type="button" class="reset-btn" onclick="resetDone(this)">🔄 초기화</button>
+     </div>` + html;
   applyDoneState();
 }
 
@@ -1005,6 +1031,17 @@ function applyDoneState(){
     const el = document.getElementById("prog-" + gi);
     if (el) el.textContent = slugs.filter(sl => d[sl]).length + "/" + slugs.length;
   });
+  /* 진행률 바 — 시기별 탭 + 교재 전체 */
+  const setBar = (key, slugs) => {
+    const uniq = [...new Set(slugs)];
+    const n = uniq.filter(sl => d[sl]).length;
+    const bar = document.getElementById("bar-" + key);
+    const cnt = document.getElementById("cnt-" + key);
+    if (bar) bar.style.width = uniq.length ? Math.round((n / uniq.length) * 100) + "%" : "0%";
+    if (cnt) cnt.textContent = n + "/" + uniq.length;
+  };
+  PHASES.forEach(p => setBar(p.tab, p.books));
+  setBar("all", Object.keys(BOOKS));
 }
 
 function toggleMore(){
