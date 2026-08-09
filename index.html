@@ -100,9 +100,15 @@
   nav.toc{
     position:sticky; top:0; z-index:50; background:rgba(255,248,246,0.94);
     backdrop-filter:blur(6px); border-bottom:1px solid var(--line);
-    display:flex; gap:7px; justify-content:center; padding:10px 12px; flex-wrap:wrap;
-    margin-top:24px;
+    display:flex; gap:7px; padding:10px 12px; margin-top:24px;
+    /* 폰에서 2줄로 접히지 않도록 한 줄 가로 스크롤 */
+    flex-wrap:nowrap; overflow-x:auto; justify-content:flex-start;
+    scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
   }
+  nav.toc::-webkit-scrollbar{display:none;}
+  nav.toc a{scroll-snap-align:center; flex:0 0 auto;}
+  @media (min-width:760px){ nav.toc{justify-content:center;} }
   nav.toc a{
     font-family:'Jalnan',-apple-system,sans-serif; font-size:17px; text-decoration:none;
     padding:9px 17px; border-radius:999px; border:1px solid var(--line);
@@ -141,7 +147,7 @@
     background:linear-gradient(180deg,#F5B98E,#F08CAE,#E8697B); border-radius:99px;
   }
   .phase{position:relative; margin-bottom:34px; scroll-margin-top:74px;}
-  .phase::before{
+  .timeline .phase::before{
     content:''; position:absolute; left:-27px; top:22px;
     width:17px; height:17px; border-radius:50%; background:#fff;
     border:4px solid var(--pc); z-index:2;
@@ -267,6 +273,56 @@
     color:#B8860B; background:#FFF9E6; border-radius:8px; padding:5px 8px; text-align:center;
   }
 
+  /* 단계 표시 · 시기 이동 */
+  .dots{display:flex; gap:6px; justify-content:center; align-items:center; margin-bottom:14px;}
+  .dots i{width:28px; height:5px; border-radius:99px; background:var(--line);}
+  .dots i.on{background:var(--pink);}
+  .phase-nav{display:flex; gap:8px; margin-top:18px;}
+  .phase-nav button{
+    flex:1; border:1.5px solid var(--line); background:#fff; color:var(--pink-deep);
+    border-radius:14px; padding:14px 10px; font-size:13.5px; font-weight:800;
+    cursor:pointer; font-family:inherit; transition:all .15s;
+  }
+  .phase-nav button:hover{background:var(--pink-bg); border-color:var(--pink-light);}
+  .phase-nav button.main{background:var(--pink); border-color:var(--pink); color:#fff;}
+
+  /* 아코디언 */
+  details.acc{
+    background:var(--card); border:1.5px solid var(--line); border-radius:14px;
+    margin-bottom:12px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  details.acc>summary{
+    list-style:none; cursor:pointer; padding:15px 16px; font-size:14.5px; font-weight:800;
+    color:var(--ink); display:flex; align-items:center; gap:8px;
+  }
+  details.acc>summary::-webkit-details-marker{display:none;}
+  details.acc>summary::after{content:'▾'; margin-left:auto; color:var(--pink-deep); font-size:13px; transition:transform .2s;}
+  details.acc[open]>summary::after{transform:rotate(180deg);}
+  details.acc>summary:hover{background:var(--pink-bg);}
+  .acc-body{padding:0 16px 16px;}
+  details.note-acc{background:var(--pink-bg); border-color:#FFC6D6; box-shadow:none; margin-top:16px;}
+  details.note-acc>summary{color:var(--pink-deep); font-size:13px; padding:12px 15px;}
+  details.note-acc .acc-body{padding:0 15px 14px; font-size:12.5px; line-height:1.85; color:#8A5B6B;}
+  details.note-acc .acc-body b{color:var(--pink-deep);}
+
+  /* 인트로 더보기 */
+  .more-btn{
+    display:block; width:100%; margin-top:14px; border:1.5px solid var(--line);
+    background:#fff; color:var(--pink-deep); border-radius:999px; padding:10px;
+    font-size:13px; font-weight:800; cursor:pointer; font-family:inherit;
+  }
+  .more-btn:hover{background:var(--pink-bg);}
+  .more-wrap{display:none;}
+  .more-wrap.open{display:block;}
+
+  /* 교재 레일 */
+  .rail-label{font-size:15.5px; font-weight:800; margin:22px 0 10px; display:flex; align-items:center; gap:8px;}
+  .rail-label:first-child{margin-top:0;}
+  .rail-label .cnt{font-size:12px; color:var(--sub); font-weight:700;}
+  .rail-label .swipe{margin-left:auto; font-size:11.5px; color:var(--sub); font-weight:700;}
+  .search-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:560px; margin:0 auto;}
+  .search-grid .bk{flex:none; width:100%;}
+
   /* ── 과목별 변화 탭 ── */
   .growth{
     background:var(--card); border:1.5px solid var(--line); border-radius:var(--radius);
@@ -297,16 +353,6 @@
   .g-punch b{color:var(--pink-deep);}
 
   /* ── 교재 전체 탭 ── */
-  .all-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:13px;}
-  .all-grid .bk{flex:none; width:100%;}
-  .filter{display:flex; gap:7px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;}
-  .filter button{
-    border:1.5px solid var(--line); background:#fff; color:var(--pink-deep);
-    border-radius:999px; padding:7px 15px; font-size:13px; font-weight:700;
-    cursor:pointer; font-family:inherit; transition:all .15s;
-  }
-  .filter button:hover{background:var(--pink-bg);}
-  .filter button.on{background:var(--pink); border-color:var(--pink); color:#fff;}
 
   /* ── 마무리 ── */
   .keys{
@@ -380,7 +426,7 @@
   @media (max-width:600px){
     .timeline{padding-left:26px;}
     .timeline::before{left:9px;}
-    .phase::before{left:-23px; width:15px; height:15px; border-width:3.5px;}
+    .timeline .phase::before{left:-23px; width:15px; height:15px; border-width:3.5px;}
     .phase-body{padding:16px 15px 18px;}
     .phase-head{padding:16px 15px;}
     .jump{gap:6px;}
@@ -388,7 +434,6 @@
     .jump .j-when{font-size:13.5px;}
     .jump .j-what{font-size:10.5px;}
     .bk{flex-basis:152px; width:152px;}
-    .all-grid{grid-template-columns:1fr 1fr; gap:10px;}
     nav.toc a{font-size:15px; padding:8px 13px;}
     .insta,.share-btn{width:100%; justify-content:center;}
     .cbtn{width:40px; height:40px; font-size:22px; top:88px;}
@@ -418,6 +463,8 @@
     경빈이가 초3이 되면서 <strong>"둘째도 같은 방식으로 하시나요?"</strong> 질문을 참 많이 받았는데요, 결론부터 말씀드리면 <strong>전혀 다르게 하고 있어요!</strong><br><br>
     성빈이는 어릴 때부터 ✔️ 한글보다 <strong>수학에 더 흥미</strong>가 있었고 ✔️ 속도도 빠른 편이 아니라서 ✔️ 무엇보다 <strong>'천천히 익숙해지는 타입'</strong>이에요.<br><br>
     그래서 지금은 양을 늘리기보다 <strong>끊기지 않는 루틴을 만드는 데 집중</strong>하고 있어요. 처음엔 저도 "이렇게 적게 해도 될까?" 고민이 많았는데, 아이 속도에 맞춰보니 오히려 훨씬 안정적으로 이어지더라구요 😊
+    <button type="button" class="more-btn" id="moreBtn" onclick="toggleMore()">＋ 누구에게 맞는 루틴인지 더 보기</button>
+    <div class="more-wrap" id="moreWrap">
     <div class="who-box">
       <b>💡 이런 분들께 도움이 될 거예요</b>
       ✔️ 아이 속도가 느려서 고민이신 분<br>
@@ -429,36 +476,24 @@
       아래 루틴은 '빠르게 가는 아이'가 아니라 <b style="display:inline; color:#B8860B;">'천천히 익숙해지는 아이 기준'</b>으로 만든 성빈이 맞춤형 루틴이에요.<br>
       한글보다 수학에 더 반응하는 아이라 <b style="display:inline; color:#B8860B;">수학 진도는 조금 빠를 수 있어요.</b> 지금은 독서량 늘리는 데 더 집중하고 있어서 다른 과목 문제집은 아직 따로 안 하고 있답니다!
     </div>
+    </div>
   </div>
 </div>
 
 <nav class="toc">
-  <a href="#timeline" onclick="showTab('timeline', event)">⏱ 시간순 로드맵</a>
-  <a href="#growth" onclick="showTab('growth', event)">📊 과목별 변화</a>
-  <a href="#books" onclick="showTab('books', event)">📚 교재 전체</a>
+  <a href="#p1" onclick="showTab('p1', event)">1️⃣ 3~5월</a>
+  <a href="#p2" onclick="showTab('p2', event)">2️⃣ 5월~</a>
+  <a href="#p3" onclick="showTab('p3', event)">3️⃣ 여름방학</a>
+  <a href="#growth" onclick="showTab('growth', event)">📊 변화</a>
+  <a href="#books" onclick="showTab('books', event)">📚 교재</a>
 </nav>
 
 <div class="wrap">
 
-  <!-- ══════ 시간순 로드맵 ══════ -->
-  <section class="tab-section" id="timeline">
-    <div class="sec-head">
-      <h2>⏱ 시간순 로드맵</h2>
-      <p>3월부터 여름방학까지, 시기마다 무엇을 어떻게 했는지</p>
-    </div>
-    <div class="jump">
-      <button type="button" class="j1" onclick="jumpTo('phase-1')">
-        <span class="j-step">STEP 1</span><span class="j-when">3~5월</span><span class="j-what">루틴 만들기</span>
-      </button>
-      <button type="button" class="j2" onclick="jumpTo('phase-2')">
-        <span class="j-step">STEP 2</span><span class="j-when">5월~</span><span class="j-what">영어 확장</span>
-      </button>
-      <button type="button" class="j3" onclick="jumpTo('phase-3')">
-        <span class="j-step">STEP 3</span><span class="j-when">여름방학</span><span class="j-what">2-1 심화</span>
-      </button>
-    </div>
-    <div class="timeline" id="timeline-body"></div>
-  </section>
+  <!-- ══════ 시기별 (탭 3개) ══════ -->
+  <section class="tab-section" id="p1"></section>
+  <section class="tab-section" id="p2"></section>
+  <section class="tab-section" id="p3"></section>
 
   <!-- ══════ 과목별 변화 ══════ -->
   <section class="tab-section" id="growth">
@@ -473,10 +508,9 @@
   <section class="tab-section" id="books">
     <div class="sec-head">
       <h2>📚 교재 전체 리스트</h2>
-      <p>표지를 클릭하면 구매 페이지로 연결돼요</p>
+      <p>과목별로 옆으로 넘겨보세요 · 표지를 누르면 구매 페이지로</p>
     </div>
-    <div class="filter" id="book-filter"></div>
-    <div class="all-grid" id="books-body"></div>
+    <div id="books-body"></div>
   </section>
 
   <div class="keys">
@@ -644,7 +678,7 @@ const BOOKS = {
 /* ══════ 시기별 데이터 ══════ */
 const PHASES = [
   {
-    id:"phase-1", cls:"p1", when:"STEP 1 · 3월~5월", title:"“양보다 끊기지 않는 루틴” 만들기",
+    id:"p1", tab:"p1", short:"3~5월", cls:"p1", when:"STEP 1 · 3월~5월", title:"“양보다 끊기지 않는 루틴” 만들기",
     tagline:"학원 없이, <b>수학 중심 루틴</b>으로 기초를 쌓는 시기.<br>문제집 양은 많지 않지만 아이 속도에 맞춰 ‘매일 이어가는 것’에 집중했어요.",
     day:[
       {ic:"🌅", when:"아침 40~60분", what:"수학(연산 1바닥 · 문장제 1장 · 시계 1장) + 한자 1장<br>마무리로 <b>ORT 집중듣기 3권</b>"},
@@ -664,7 +698,7 @@ const PHASES = [
     delta:null
   },
   {
-    id:"phase-2", cls:"p2", when:"STEP 2 · 5월~", title:"수학은 넓히고, 영어는 말하기까지",
+    id:"p2", tab:"p2", short:"5월~", cls:"p2", when:"STEP 2 · 5월~", title:"수학은 넓히고, 영어는 말하기까지",
     tagline:"수학 중심 루틴에서 <b>영어 파닉스 등 기초를 함께 쌓는 시기</b>.<br>한글 책 읽기도 집중! 형아 1학년 때보다는 쉬운 난이도로 하고 있어요.",
     day:[
       {ic:"🌅", when:"아침 40~60분", what:"수학(연산 · 문장제 · 꼭공) + 한자 1장<br>마무리로 <b>ORT 3~4단계 집중듣기 3권</b>"},
@@ -684,7 +718,7 @@ const PHASES = [
     delta:["<b>꼭공 1-2</b> 추가 → 국어까지 자연스럽게 얹기","<b>그림으로 개념 잡는 초등수학 2-1</b> 추가 → 인강으로 개념 학습 시작","사고력 필즈 <b>킨더 상 → 베이직 상</b>으로 레벨업, 주 1회 → 하루 1장","ORT <b>1~3단계 → 3~4단계</b>로 상승","<b>다이노 AI 추가</b> → 화상영어가 힘든 시기에 말하기 대체","파닉스 매일 → <b>주 3회</b>로 조정 (AI에 자리 내주기)"]
   },
   {
-    id:"phase-3", cls:"p3", when:"STEP 3 · 여름방학 (3주)", title:"2-1 교과 심화 + 사이트워드 시작",
+    id:"p3", tab:"p3", short:"여름방학", cls:"p3", when:"STEP 3 · 여름방학 (3주)", title:"2-1 교과 심화 + 사이트워드 시작",
     tagline:"3주 남짓 짧은 방학이라 많이 하기보다 <b>수학과 영어를 한 단계씩 확장</b>하는 데 집중했어요.<br>루틴은 그대로 유지하면서 딱 한 칸씩만!",
     day:[
       {ic:"🌅", when:"아침", what:"수학(문장제 · 개념서 · 필즈 · <b>최상위 수학S</b>) + 한자"},
@@ -762,87 +796,118 @@ function bookHTML(slug, phaseTag){
     </div>`;
 }
 
-function renderTimeline(){
-  document.getElementById("timeline-body").innerHTML = PHASES.map((p, i) => {
+function renderPhases(){
+  PHASES.forEach((p, i) => {
+    const sec = document.getElementById(p.tab);
+    if (!sec) return;
     const railId = "rail-" + (i + 1);
-    return `
-    <div class="phase ${p.cls}" id="${p.id}">
-      <div class="phase-card">
-        <div class="phase-head">
-          <span class="phase-when">${p.when}</span>
-          <h3>${p.title}</h3>
-          <p class="tagline">${p.tagline}</p>
-        </div>
-        <div class="phase-body">
-          <div class="block-label">🕐 이 시기 하루 흐름</div>
-          <div class="day">
-            ${p.day.map(d => `
-              <div class="day-row">
-                <div class="day-ic">${d.ic}</div>
-                <div class="day-main">
-                  <div class="day-when">${d.when}</div>
-                  <div class="day-what">${d.what}</div>
-                </div>
-              </div>`).join("")}
+    const prev = i > 0 ? PHASES[i - 1] : null;
+    const next = i < PHASES.length - 1 ? PHASES[i + 1] : null;
+    sec.innerHTML = `
+      <div class="dots">${PHASES.map((_, j) => `<i class="${j === i ? "on" : ""}"></i>`).join("")}</div>
+      <div class="phase ${p.cls}">
+        <div class="phase-card">
+          <div class="phase-head">
+            <span class="phase-when">${p.when}</span>
+            <h3>${p.title}</h3>
+            <p class="tagline">${p.tagline}</p>
           </div>
+          <div class="phase-body">
+            <div class="block-label">🕐 이 시기 하루 흐름</div>
+            <div class="day">
+              ${p.day.map(d => `
+                <div class="day-row">
+                  <div class="day-ic">${d.ic}</div>
+                  <div class="day-main">
+                    <div class="day-when">${d.when}</div>
+                    <div class="day-what">${d.what}</div>
+                  </div>
+                </div>`).join("")}
+            </div>
 
-          <div class="block-label">📋 과목별 루틴</div>
-          <div class="table-scroll">
-            <table class="rt">
-              <tr><th>구분</th><th>학습 내용</th><th>포인트</th></tr>
-              ${p.routine.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}
-            </table>
-          </div>
+            <div class="block-label">📋 과목별 루틴</div>
+            <div class="table-scroll">
+              <table class="rt">
+                <tr><th>구분</th><th>학습 내용</th><th>포인트</th></tr>
+                ${p.routine.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}
+              </table>
+            </div>
 
-          ${p.delta ? `<div class="delta"><b>🔺 지난 시기에서 이렇게 바뀌었어요</b><ul>${p.delta.map(d => `<li>${d}</li>`).join("")}</ul></div>` : ""}
-          ${p.note ? `<div class="note">${p.note}</div>` : ""}
+            ${p.delta ? `<div class="delta"><b>🔺 지난 시기에서 이렇게 바뀌었어요</b><ul>${p.delta.map(d => `<li>${d}</li>`).join("")}</ul></div>` : ""}
+            ${p.note ? `<details class="acc note-acc"><summary>💬 이 시기 투빈맘 이야기</summary><div class="acc-body">${p.note}</div></details>` : ""}
 
-          <div class="block-label">📚 이 시기 교재 · 표지를 누르면 구매 페이지로</div>
-          <div class="carousel-wrap">
-            <button type="button" class="cbtn prev" onclick="scrollRail('${railId}',-1)" aria-label="이전">‹</button>
-            <div class="rail" id="${railId}">${p.books.map(s => bookHTML(s)).join("")}</div>
-            <button type="button" class="cbtn next" onclick="scrollRail('${railId}',1)" aria-label="다음">›</button>
+            <div class="block-label">📚 이 시기 교재 · 옆으로 넘겨보세요</div>
+            <div class="carousel-wrap">
+              <button type="button" class="cbtn prev" onclick="scrollRail('${railId}',-1)" aria-label="이전">‹</button>
+              <div class="rail" id="${railId}">${p.books.map(b => bookHTML(b)).join("")}</div>
+              <button type="button" class="cbtn next" onclick="scrollRail('${railId}',1)" aria-label="다음">›</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>`;
-  }).join("");
+      <div class="phase-nav">
+        ${prev ? `<button type="button" onclick="showTab('${prev.tab}')">← ${prev.short}</button>` : ""}
+        ${next
+          ? `<button type="button" class="main" onclick="showTab('${next.tab}')">${next.short} →</button>`
+          : `<button type="button" class="main" onclick="showTab('growth')">📊 과목별 변화 보기 →</button>`}
+      </div>`;
+  });
 }
 
 function renderGrowth(){
-  document.getElementById("growth-body").innerHTML = GROWTH.map(g => `
-    <div class="growth">
-      <h3>${g.title}</h3>
-      <p class="g-sum">${g.sum}</p>
-      <div class="steps">
-        ${g.steps.map((s, i) => `
-          <div class="step s${i + 1}">
-            <div class="step-when">${s.when}</div>
-            <ul>${s.items.map(it => `<li>${it}</li>`).join("")}</ul>
-          </div>`).join("")}
+  document.getElementById("growth-body").innerHTML = GROWTH.map((g, i) => `
+    <details class="acc" ${i === 0 ? "open" : ""}>
+      <summary>${g.title}</summary>
+      <div class="acc-body">
+        <p class="g-sum">${g.sum}</p>
+        <div class="steps">
+          ${g.steps.map((st, j) => `
+            <div class="step s${j + 1}">
+              <div class="step-when">${st.when}</div>
+              <ul>${st.items.map(it => `<li>${it}</li>`).join("")}</ul>
+            </div>`).join("")}
+        </div>
+        <div class="g-punch">${g.punch}</div>
       </div>
-      <div class="g-punch">${g.punch}</div>
-    </div>`).join("");
+    </details>`).join("");
 }
 
 /* 교재 전체 — 시기 뱃지 계산 */
 const PHASE_SHORT = ["3~5월", "5월~", "여름"];
 const BOOK_PHASES = {};
-PHASES.forEach((p, i) => p.books.forEach(s => {
-  (BOOK_PHASES[s] = BOOK_PHASES[s] || []).push(PHASE_SHORT[i]);
+PHASES.forEach((p, i) => p.books.forEach(sl => {
+  const arr = (BOOK_PHASES[sl] = BOOK_PHASES[sl] || []);
+  if (arr.indexOf(PHASE_SHORT[i]) < 0) arr.push(PHASE_SHORT[i]);
 }));
 
-let bookFilter = "전체";
+/* 과목별로 한 블록씩 · 옆으로 넘겨서 보기 */
+const BOOK_GROUPS = [
+  {key:"수학", label:"📐 수학"},
+  {key:"영어", label:"🔤 영어"},
+  {key:"한자", label:"🈷️ 한자"},
+  {key:"독서", label:"📖 독서"}
+];
+
 function renderBooks(){
-  const subjects = ["전체", "수학", "영어", "한자", "독서"];
-  document.getElementById("book-filter").innerHTML = subjects.map(s =>
-    `<button type="button" class="${s === bookFilter ? "on" : ""}" onclick="setFilter('${s}')">${s}</button>`
-  ).join("");
-  const slugs = Object.keys(BOOKS).filter(s => bookFilter === "전체" || BOOKS[s].subject === bookFilter);
-  document.getElementById("books-body").innerHTML =
-    slugs.map(s => bookHTML(s, (BOOK_PHASES[s] || []).join("·"))).join("");
+  document.getElementById("books-body").innerHTML = BOOK_GROUPS.map((g, gi) => {
+    const slugs = Object.keys(BOOKS).filter(sl => BOOKS[sl].subject === g.key);
+    if (!slugs.length) return "";
+    const id = "brail-" + gi;
+    return `
+      <div class="rail-label">${g.label} <span class="cnt">${slugs.length}종</span><span class="swipe">옆으로 넘겨보세요 →</span></div>
+      <div class="carousel-wrap">
+        <button type="button" class="cbtn prev" onclick="scrollRail('${id}',-1)" aria-label="이전">‹</button>
+        <div class="rail" id="${id}">${slugs.map(sl => bookHTML(sl, (BOOK_PHASES[sl] || []).join("·"))).join("")}</div>
+        <button type="button" class="cbtn next" onclick="scrollRail('${id}',1)" aria-label="다음">›</button>
+      </div>`;
+  }).join("");
 }
-function setFilter(s){ bookFilter = s; renderBooks(); }
+
+function toggleMore(){
+  const w = document.getElementById("moreWrap"), b = document.getElementById("moreBtn");
+  const open = w.classList.toggle("open");
+  b.textContent = open ? "－ 접기" : "＋ 누구에게 맞는 루틴인지 더 보기";
+}
 
 function scrollRail(id, dir){
   const r = document.getElementById(id);
@@ -880,16 +945,11 @@ function showTab(id, evt, opts){
   updateArrows();
 }
 
-function jumpTo(pid){
-  const el = document.getElementById(pid);
-  if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
-}
-
 function initTab(){
   const h = location.hash.replace("#", "");
-  const valid = ["timeline", "growth", "books"];
+  const valid = ["p1", "p2", "p3", "growth", "books"];
   const ok = valid.indexOf(h) >= 0;
-  showTab(ok ? h : "timeline", null, {skipScroll:true, skipHash:!ok});
+  showTab(ok ? h : "p1", null, {skipScroll:true, skipHash:!ok});
   if (!ok){
     window.scrollTo(0, 0);
     setTimeout(() => window.scrollTo(0, 0), 0);
@@ -915,7 +975,7 @@ function applySearch(){
   }
   const m = INDEX.filter(e => e.hay.includes(q));
   box.innerHTML = m.length
-    ? `<div class="all-grid" style="max-width:640px; margin:0 auto;">${m.map(e => bookHTML(e.slug, (BOOK_PHASES[e.slug] || []).join("·"))).join("")}</div>`
+    ? `<div class="search-grid">${m.map(e => bookHTML(e.slug, (BOOK_PHASES[e.slug] || []).join("·"))).join("")}</div>`
     : `<p class="ss-hint">검색 결과가 없어요 🥲<br>다른 이름으로 찾아보세요</p>`;
 }
 function clearSearch(){
@@ -958,7 +1018,7 @@ function shareKakao(btn){
   btn._timer = setTimeout(() => { btn.classList.remove("copied"); btn.textContent = "💬 카톡으로 공유"; }, ok ? 1800 : 4000);
 }
 
-renderTimeline();
+renderPhases();
 renderGrowth();
 renderBooks();
 initTab();
